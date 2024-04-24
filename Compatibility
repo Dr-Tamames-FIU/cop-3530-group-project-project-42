@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class Compatibility {
+class Compatibility implements Matchable {
     private HashMap<String, String> soulmateInfoMap;
 
     public Compatibility() {
