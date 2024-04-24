@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class Matcher {
+    private Map<String, List<String>> graph = new HashMap<>();
+
+    public Matcher() {
+        initializeGraph();
+    }
+
+    private void initializeGraph() {
+        getGraph().put("Aries", Arrays.asList("Aries", "Leo", "Sagittarius", "Gemini", "Aquarius"));
+        getGraph().put("Taurus", Arrays.asList("Cancer", "Capricorn", "Virgo", "Pisces"));
+        getGraph().put("Gemini", Arrays.asList("Leo", "Libra", "Aries", "Aquarius"));
+        getGraph().put("Cancer", Arrays.asList("Scorpio", "Taurus", "Pisces", "Virgo"));
+        getGraph().put("Leo", Arrays.asList("Gemini", "Libra", "Sagittarius", "Aries"));
+        getGraph().put("Virgo", Arrays.asList("Scorpio", "Capricorn", "Cancer", "Taurus"));
+        getGraph().put("Libra", Arrays.asList("Gemini", "Aquarius", "Sagittarius", "Leo"));
+        getGraph().put("Scorpio", Arrays.asList("Pisces", "Virgo", "Capricorn", "Cancer"));
+        getGraph().put("Sagittarius", Arrays.asList("Leo", "Aquarius", "Aries", "Libra"));
+        getGraph().put("Capricorn", Arrays.asList("Pisces", "Taurus", "Virgo", "Scorpio"));
+        getGraph().put("Aquarius", Arrays.asList("Libra", "Aries", "Gemini", "Sagittarius"));
+        getGraph().put("Pisces", Arrays.asList("Cancer", "Scorpio", "Capricorn", "Taurus"));
+    }
+
+    public List<String> getCompatibleSigns(String zodiacSign) {
+        return graph.get(zodiacSign);
+    }
+
+    public String getCompatibilitySign(String zodiacSign1, String zodiacSign2) {
+        List<String> compatibleSigns1 = getCompatibleSigns(zodiacSign1);
+        List<String> compatibleSigns2 = getCompatibleSigns(zodiacSign2);
+        if (compatibleSigns1 != null && compatibleSigns1.contains(zodiacSign2) && compatibleSigns2 != null && compatibleSigns2.contains(zodiacSign1)) {
+            return "Compatible";
+        } else {
+            return "Not compatible";
+        }
+    }
+
+    public boolean isValidZodiacSign(String zodiacSign) {
+        return graph.containsKey(zodiacSign);
+    }
+
+    public void addCompatibility(String zodiacSign1, String zodiacSign2) {
+        graph.computeIfAbsent(zodiacSign1, k -> new ArrayList<>()).add(zodiacSign2);
+        graph.computeIfAbsent(zodiacSign2, k -> new ArrayList<>()).add(zodiacSign1);
+    }
+
+    public Map<String, List<String>> getGraph() {
+        return graph;
+    }
+}
+
