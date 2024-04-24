@@ -1,0 +1,84 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+class Compatibility {
+    private HashMap<String, String> soulmateInfoMap;
+
+    public Compatibility() {
+        initializeSoulmateInfoMap();
+    }
+
+    private void initializeSoulmateInfoMap() {
+        soulmateInfoMap = new HashMap<>();
+        soulmateInfoMap.put("Aries", "A confident go-getter who can keep up with them. Potential soulmates: Aries, Leo, Sagittarius, Gemini, Aquarius.");
+        soulmateInfoMap.put("Taurus", "A loyal and romantic type who only has eyes for them. Potential soulmates: Cancer, Capricorn, Virgo, Pisces.");
+        soulmateInfoMap.put("Gemini", "Somebody with a brain, a sense of humor, and enough differences to keep things interesting. Potential soulmates: Leo, Libra, Aries, Aquarius.");
+        soulmateInfoMap.put("Cancer", "An intelligent, affectionate, and sensual soul with an empathetic heart. Potential soulmates: Scorpio, Taurus, Pisces, Virgo.");
+        soulmateInfoMap.put("Leo", "Somebody who is confident, mysterious, and able to keep them on their toes. Potential soulmates: Gemini, Libra, Sagittarius, Aries.");
+        soulmateInfoMap.put("Virgo", "Somebody sophisticated, complex, ambitious, and totally devoted. Potential soulmates: Scorpio, Capricorn, Cancer, Taurus.");
+        soulmateInfoMap.put("Libra", "Someone with looks, brains, and confidence to match! Potential soulmates: Gemini, Aquarius, Sagittarius, Leo.");
+        soulmateInfoMap.put("Scorpio", "Someone who can challenge them and feed off of their passion and intensity. Potential soulmates: Pisces, Virgo, Capricorn, Cancer.");
+        soulmateInfoMap.put("Sagittarius", "An open-minded, free-spirited soul who doesn't insist on trying to 'change' them. Potential soulmates: Leo, Aquarius, Aries, Libra.");
+        soulmateInfoMap.put("Capricorn", "A classy, stylish, intriguing soul that can engage their mind and remain loyal til the end. Potential soulmates: Pisces, Taurus, Virgo, Scorpio.");
+        soulmateInfoMap.put("Aquarius", "Someone committed but fun-loving, with a wicked sense of humor and a talent for cooking! Potential soulmates: Libra, Aries, Gemini, Sagittarius.");
+        soulmateInfoMap.put("Pisces", "Somebody with confidence, a creative mind, and an ability to get on their wavelength. Potential soulmates: Cancer, Scorpio, Capricorn, Taurus.");
+    }
+
+    // Method to determine zodiac sign based on birth month
+    public String getZodiacSign(String birthMonth, int birthDate) {
+        String sign = "";
+        switch (birthMonth.toLowerCase()) {
+            case "january":
+                sign = (birthDate >= 20) ? "Aquarius" : "Capricorn";
+                break;
+            case "february":
+                sign = (birthDate >= 19) ? "Pisces" : "Aquarius";
+                break;
+            case "march":
+                sign = (birthDate >= 21) ? "Aries" : "Pisces";
+                break;
+            case "april":
+                sign = (birthDate >= 20) ? "Taurus" : "Aries";
+                break;
+            case "may":
+                sign = (birthDate >= 21) ? "Gemini" : "Taurus";
+                break;
+            case "june":
+                sign = (birthDate >= 21) ? "Cancer" : "Gemini";
+                break;
+            case "july":
+                sign = (birthDate >= 23) ? "Leo" : "Cancer";
+                break;
+            case "august":
+                sign = (birthDate >= 23) ? "Virgo" : "Leo";
+                break;
+            case "september":
+                sign = (birthDate >= 23) ? "Libra" : "Virgo";
+                break;
+            case "october":
+                sign = (birthDate >= 23) ? "Scorpio" : "Libra";
+                break;
+            case "november":
+                sign = (birthDate >= 22) ? "Sagittarius" : "Scorpio";
+                break;
+            case "december":
+                sign = (birthDate >= 22) ? "Capricorn" : "Sagittarius";
+                break;
+            default:
+                sign = "Invalid month";
+                break;
+        }
+        return sign;
+    }
+    public List<String> getCompatibleSigns(String zodiacSign) {
+        Matcher matcher = new Matcher();
+        return matcher.getGraph().get(zodiacSign);
+    }
+
+
+    public String getSoulmateInfo(String zodiacSign) {
+        String soulmateInfo = soulmateInfoMap.get(zodiacSign);
+        return soulmateInfo != null ? soulmateInfo : "Invalid zodiac sign.";
+    }
+}
