@@ -1,0 +1,94 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Welcome message and user input
+        System.out.println("Welcome to Find your soulmate!!!");
+        System.out.println("Please enter your details below.");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Age: ");
+        int age;
+        while (true) {
+            try {
+                age = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid age.");
+            }
+        }
+        System.out.print("City: ");
+        String location = scanner.nextLine();
+        System.out.print("Hobbies (comma-separated): ");
+        String[] interestsArray = scanner.nextLine().split(",");
+        ArrayList<String> interests = new ArrayList<>(Arrays.asList(interestsArray));
+        if (interests.isEmpty()) {
+            System.out.println("Please enter some interests!");
+            return;
+        }
+        String birthMonth;
+        while (true) {
+            System.out.print("Birth month (e.g., March): ");
+            birthMonth = scanner.nextLine().toLowerCase(); // Convert to lowercase
+            if (isValidMonth(birthMonth)) {
+                break;
+            } else {
+                System.out.println("Enter a valid month (January to December).");
+            }
+        }
+        int birthDate;
+        while (true) {
+            System.out.print("Birth date (e.g., 1, 2, etc.): ");
+            try {
+                birthDate = Integer.parseInt(scanner.nextLine());
+                if (birthDate < 1 || birthDate > 31) {
+                    System.out.println("Enter a valid birth date (1-31).");
+                } else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid birth date (1-31).");
+            }
+        }
+
+        // Instantiate DatingApp and User objects
+        DatingApp datingApp = new DatingApp();
+        User user = new User(name, age, location, interests, birthMonth, birthDate);
+        
+        // Validate birth month and proceed accordingly
+        if (isValidMonth(birthMonth)) {
+            datingApp.addUser(user, birthMonth, birthDate);
+            datingApp.findSoulmate(user);
+            datingApp.displayMatches(); // Display matches
+            datingApp.addPotentialMatches(user); // Include additional matches to choose from
+            datingApp.chooseMatch(user); // Prompt user to choose a match
+        } else {
+            System.out.println("Invalid birth month. Please enter a valid month (January to December).");
+        }
+    }
+
+    // Method to validate input birth month
+    private static boolean isValidMonth(String month) {
+        switch (month) {
+            case "january":
+            case "february":
+            case "march":
+            case "april":
+            case "may":
+            case "june":
+            case "july":
+            case "august":
+            case "september":
+            case "october":
+            case "november":
+            case "december":
+                return true;
+            default:
+                return false;
+        }
+    }
+}
