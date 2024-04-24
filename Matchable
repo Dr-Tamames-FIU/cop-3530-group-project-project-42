@@ -1,0 +1,6 @@
+interface Matchable {
+    String getZodiacSign(String birthMonth, int birthDate);
+    String getSoulmateInfo(String zodiacSign);
+    List<String> getCompatibleSigns(String zodiacSign);
+    String getCompatibilitySign(String zodiacSign1, String zodiacSign2);
+}
